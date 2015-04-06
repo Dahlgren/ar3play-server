@@ -115,6 +115,25 @@ export function setAllPlayerData(allPlayerData: Array<Array<any>>, callback: Fun
     callback && callback(null, 201);
 }
 
+function setAllVehicleData(allVehicleData: Array<Array<any>>, callback: Function) {
+    verify.arr(allVehicleData, 'vehicle array').keepAlive();
+
+    allVehicleData.forEach(setVehicleData);
+
+    callback && callback(null, 201);
+}
+
+function setVehicleData(vehicleData: Array<any>) {
+    logger.info(vehicleData); // TODO
+}
+
+export function setAllUnitData(allPlayerData: Array<Array<any>>, allVehicleData: Array<Array<any>>, callback: Function) {
+    setAllPlayerData(allPlayerData, function () {});
+    setAllVehicleData(allVehicleData, function () {});
+
+    callback && callback(null, 201);
+}
+
 export function setPlayerData(playerData: Array<any>, callback?: Function) {
     verify.arr(playerData, 'playerData').str(playerData[0], 'playerData.name');
 
@@ -198,4 +217,5 @@ function registerAll() {
     rpc.register('setPlayerPosition', setPlayerPosition);
     rpc.register('setAllPlayerData', setAllPlayerData);
     rpc.register('setPlayerData', setPlayerData);
+    rpc.register('setAllUnitData', setAllUnitData);
 }
