@@ -7,6 +7,7 @@ var dummyCallback = function () {};
 export function init() {
     var
         dummyPos = [2000, 1684, 5],
+        dummyDir = 45,
         interval, cnt = 0;
 
     rpc.missionStart('dummyMission', 'Stratis', function () {
@@ -46,7 +47,7 @@ export function init() {
         cnt++;
         dummyPos[0] = dummyPos[0] + parseInt('' + Math.random() * 5, 10);
         dummyPos[1] = dummyPos[1] + parseInt('' + Math.random() * 3, 10);
-        dummyPos[3] = dummyPos[3] + parseInt('' + Math.random() * 50, 10) % 360;
-        rpc.setUnitDatum([6, dummyPos], dummyCallback);
+        dummyDir = dummyDir + parseInt('' + Math.random() * 50, 10) % 360;
+        rpc.setUnitDatum([6, dummyPos, dummyDir], dummyCallback);
     }, 1500);
 }
