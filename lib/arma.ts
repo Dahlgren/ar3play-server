@@ -2,12 +2,10 @@
 
 import bunyan = require('bunyan')
 import models = require('./models')
+import util = require('./util');
 
 var logger = bunyan.createLogger({name: 'arma'});
 
-function intMapper(value: any) {
-    return parseInt(value, 10);
-}
 
 function setId(model: models.Unit, id: any) {
     id = parseInt(id, 10);
@@ -33,7 +31,7 @@ function setPosition(model: models.Unit, position: any) {
     if (!Array.isArray(position) || position.length > 3) {
         throw new TypeError('invalid position ' + typeof position);
     }
-    position = position.map(intMapper);
+    position = position.map(util.toInt);
 
     model.position = position;
 }
@@ -94,9 +92,8 @@ export function setContent(unit: models.Unit, content: any) {
     if (!Array.isArray(content)) {
         throw new TypeError('content must be array');
     }
-    unit.content = content.map(intMapper)
+    unit.content = content.map(util.toInt);
 }
-
 
 export function toUnit(datum: Array<any>): models.Unit {
 

@@ -46,6 +46,16 @@ class Model {
 
         return JSON.stringify(result);
     }
+
+    augment<T>(model: T): T {
+        Object.keys(this).forEach(function (key) {
+            if (model[key] === undefined || this[key] === null) {
+                model[key] = this[key];
+            }
+        });
+
+        return model;
+    }
 }
 
 export class Unit extends Model {

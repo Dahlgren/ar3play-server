@@ -3,7 +3,7 @@
 import restify = require('restify');
 import bunyan = require('bunyan');
 import persist = require('./persist');
-import PlayerInfo = require('./PlayerInfo');
+import models = require('./models');
 import Mission = require('./Mission');
 import Authentication = require('./Authentication');
 import Configuration = require('./Configuration');
@@ -88,14 +88,14 @@ function getMissionChanges(req: restify.Request, res: restify.Response) {
         return res.send(400, 'interval must be 0<interval<100 seconds');
     }
 
-    persist.getMissionChanges(req.params.id, from, to, function (error: Error, data: HashMap<string, PlayerInfo.PlayerInfo>) {
+    persist.getMissionChanges(req.params.id, from, to, function (error: Error, data: HashMap<string, models.Unit>) {
         var result = {};
         if (error) {
             logger.error(error);
         }
 
         if (data) {
-            data.forEach(function (info: PlayerInfo.PlayerInfo, name: string) {
+            data.forEach(function (info: models.Unit, name: string) {
                 result[name] = info
             });
         }
