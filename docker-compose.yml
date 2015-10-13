@@ -1,0 +1,10 @@
+ar3play:
+  build: .
+  environment:
+    - REDIS_URL=redis
+  volumes:
+    - .:/src
+  links:
+    - redis
+redis:
+  image: redis:3.0.4
